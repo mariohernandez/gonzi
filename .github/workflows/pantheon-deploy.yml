@@ -21,10 +21,9 @@ jobs:
       deployments: write
     steps:
       - name: Checkout code
+        # Keep the default shallow clone. The action runs
+        # "git fetch --unshallow" itself, which fails on a full clone.
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          # Pantheon rejects pushes from shallow clones.
-          fetch-depth: 0
 
       - name: Push to Pantheon
         uses: pantheon-systems/push-to-pantheon@3d790c6011304958b4b7ee18946581e7ff3bfcc1 # 0.9.7
