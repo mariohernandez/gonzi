@@ -33,3 +33,18 @@ jobs:
           site: gonzi
           # Plain git push to Dev; no Build Tools plugin or content cloning.
           skip_build_tools: true
+
+      # push-to-pantheon reports success even when its push fails,
+      # so check that Pantheon's master now points at this commit.
+      - name: Verify Pantheon received the commit
+        env:
+          PANTHEON_SITE: gonzi
+        run: |
+          site_id=$(terminus site:info "$PANTHEON_SITE" --field=id)
+          remote="ssh://codeserver.dev.${site_id}@codeserver.dev.${site_id}.drush.in:2222/~/repository.git"
+          pantheon_sha=$(git ls-remote "$remote" refs/heads/master | cut -f1)
+          if [ "$pantheon_sha" != "$GITHUB_SHA" ]; then
+            echo "::error::Pantheon master is at '${pantheon_sha:-unknown}', expected $GITHUB_SHA. See the Push to Pantheon step log."
+            exit 1
+          fi
+          echo "Pantheon master is at $GITHUB_SHA."
