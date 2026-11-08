@@ -1,0 +1,20 @@
+name: Deploy to Pantheon
+on:
+  push:
+    branches:
+      - main  # Adjust this if your default branch is named 'master'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      # Uses Pantheon's official deployment action
+      - name: Push to Pantheon
+        uses: pantheon-systems/push-to-pantheon@0.6.0
+        with:
+          ssh_key: ${{ secrets.PANTHEON_PRIVATE_SSH_KEY }}
+          machine_token: ${{ secrets.PANTHEON_MACHINE_TOKEN }}
+          site: 'gonzi'
