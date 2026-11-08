@@ -1,0 +1,10 @@
+#
+# Loaded by settings.pantheon.php on Pantheon dev and multidev
+# environments only (not on 'test' or 'live').
+#
+# Production-only services go in 'services.pantheon.production.yml'.
+# See 'default.services.yml' for other useful settings.
+#
+parameters:
+  twig.config:
+    debug: true
