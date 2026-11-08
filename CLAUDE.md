@@ -41,4 +41,5 @@ GitHub is the source of truth. The remotes are:
 - The workflow needs the repo secrets `PANTHEON_PRIVATE_SSH_KEY` (its public key must be on the Pantheon account) and `PANTHEON_MACHINE_TOKEN`.
 - The checkout uses `fetch-depth: 0` because Pantheon rejects pushes from shallow clones.
 - The job needs `permissions: contents: read, deployments: write`. The action checks for these and fails without them.
+- Actions are pinned to full commit SHAs with the version in a trailing comment (`@<sha> # v7.0.1`). Keep that format; Dependabot (`.github/dependabot.yml`) opens weekly PRs to bump them.
 - Pushing changes under `.github/workflows/` requires a GitHub token with the `workflow` scope (`gh auth refresh -h github.com -s workflow`).

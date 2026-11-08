@@ -21,13 +21,13 @@ jobs:
       deployments: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # Pantheon rejects pushes from shallow clones.
           fetch-depth: 0
 
       - name: Push to Pantheon
-        uses: pantheon-systems/push-to-pantheon@0.9.7
+        uses: pantheon-systems/push-to-pantheon@3d790c6011304958b4b7ee18946581e7ff3bfcc1 # 0.9.7
         with:
           ssh_key: ${{ secrets.PANTHEON_PRIVATE_SSH_KEY }}
           machine_token: ${{ secrets.PANTHEON_MACHINE_TOKEN }}
