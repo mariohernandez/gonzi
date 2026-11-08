@@ -39,7 +39,7 @@ GitHub is the source of truth. The remotes are:
 - Commits made only on Pantheon (dashboard or SFTP) get overwritten by the next deploy. Make code changes in GitHub.
 - Pantheon Dev must be in Git mode, not SFTP mode, or the push fails.
 - The workflow needs the repo secrets `PANTHEON_PRIVATE_SSH_KEY` (its public key must be on the Pantheon account) and `PANTHEON_MACHINE_TOKEN`.
-- The checkout uses `fetch-depth: 0` because Pantheon rejects pushes from shallow clones.
+- Don't set `fetch-depth: 0` on the checkout. The action runs `git fetch --unshallow` itself (Pantheon rejects shallow pushes), and that command fails on a full clone.
 - The job needs `permissions: contents: read, deployments: write`. The action checks for these and fails without them.
 - Actions are pinned to full commit SHAs with the version in a trailing comment (`@<sha> # v7.0.1`). Keep that format; Dependabot (`.github/dependabot.yml`) opens weekly PRs to bump them.
 - Pushing changes under `.github/workflows/` requires a GitHub token with the `workflow` scope (`gh auth refresh -h github.com -s workflow`).
